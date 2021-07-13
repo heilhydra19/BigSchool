@@ -64,6 +64,17 @@ namespace Practice3.Controllers
             }
             return View(courses);
         }
+        public ActionResult Mine()
+        {
+            ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                                .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var courses = db.Courses.Where(p => p.LecturerId == currentUser.Id && p.DateTime > DateTime.Now).ToList();
+            foreach(Course i in courses)
+            {
+                i.Name = currentUser.Name;
+            }
+            return View(courses);
+        }
 
         protected override void Dispose(bool disposing)
         {

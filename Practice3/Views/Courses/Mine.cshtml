@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Practice3.Models.Course>
+
+@{
+    ViewBag.Title = "Mine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <ul class="course">
+        @foreach (var item in Model)
+        {
+            <li>
+                <div class="date">
+                    <div class="month">
+                        @item.DateTime.ToString("MM")
+                    </div>
+                    <div class="day">
+                        @item.DateTime.ToString("dd")
+                    </div>
+                </div>
+                <div class="details">
+                    <span class="lecture">
+                        @item.Name
+                    </span>
+                    <br />
+                    <span class="category">
+                        @item.Category.Name
+                    </span>
+                </div>
+                <div class="action">
+                    <a href="">Edit</a>
+                    <a href="">Delete</a>
+                </div>
+            </li>
+        }
+    </ul>
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $(".js-toggle-attendance").click(function (e) {
+                    var button = $(e.target);
+                    $.put("/api/Attendances", { Id: button.attr("data-course-id") })
+                        .done(function () {
+                            alert("Change course sucessfully!")
+                            button
+                                .removeClass("btn-default")
+                                .addClass("btn-info")
+                                .text("Going");
+                        }).fail(function () {
+                            alert("Something fail");
+                        });
+                });
+            });
+        </script>
+    }
+</div>

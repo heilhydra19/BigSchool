@@ -18,34 +18,34 @@ namespace Practice3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // PUT: api/Attendances/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutAttendance(Attendance attendance)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutAttendance(Attendance attendance)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    db.Entry(attendance).State = EntityState.Modified;
+            db.Entry(attendance).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!AttendanceExists(attendance))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AttendanceExists(attendance))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
         // POST: api/Attendances
         [ResponseType(typeof(Attendance))]
@@ -73,20 +73,20 @@ namespace Practice3.Controllers
         }
 
         // DELETE: api/Attendances/5
-        //[ResponseType(typeof(Attendance))]
-        //public IHttpActionResult DeleteAttendance(int id)
-        //{
-        //    Attendance attendance = db.Attendances.Find(id);
-        //    if (attendance == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [ResponseType(typeof(Attendance))]
+        public IHttpActionResult DeleteAttendance(int id)
+        {
+            Attendance attendance = db.Attendances.Find(id);
+            if (attendance == null)
+            {
+                return NotFound();
+            }
 
-        //    db.Attendances.Remove(attendance);
-        //    db.SaveChanges();
+            db.Attendances.Remove(attendance);
+            db.SaveChanges();
 
-        //    return Ok(attendance);
-        //}
+            return Ok(attendance);
+        }
 
         protected override void Dispose(bool disposing)
         {
