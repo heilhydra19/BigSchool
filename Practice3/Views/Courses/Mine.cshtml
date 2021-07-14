@@ -28,8 +28,8 @@
                     </span>
                 </div>
                 <div class="action">
-                    <a href="">Edit</a>
-                    <a href="">Delete</a>
+                    <a href="@Url.Action("EditMineCourse", "Courses", new { id = item.Id })">Edit</a>
+                    <a href="@Url.Action("DeleteMineCourse", "Courses", new { id = item.Id })">Delete</a>
                 </div>
             </li>
         }

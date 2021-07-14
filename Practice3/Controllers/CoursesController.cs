@@ -75,6 +75,65 @@ namespace Practice3.Controllers
             }
             return View(courses);
         }
+        public ActionResult EditMineCourse(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Course course = db.Courses.Find(id);
+            if (course == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", course.CategoryId);
+            return View(course);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditMineCourse([Bind(Include = "Id,LecturerId,Place,DateTime,CategoryId")] Course course)
+        {
+            ModelState.Remove("LecturerId");
+            ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                                .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            if (currentUser == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            if (ModelState.IsValid)
+            {
+                course.LecturerId = currentUser.Id;
+                db.Entry(course).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Mine");
+            }
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", course.CategoryId);
+            return View(course);
+        }
+        public ActionResult DeleteMineCourse(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Course course = db.Courses.Find(id);
+            if (course == null)
+            {
+                return HttpNotFound();
+            }
+            return View(course);
+        }
+
+        [HttpPost, ActionName("DeleteMineCourse")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Course course = db.Courses.Find(id);
+            db.Courses.Remove(course);
+            db.SaveChanges();
+            return RedirectToAction("Mine");
+        }
 
         protected override void Dispose(bool disposing)
         {

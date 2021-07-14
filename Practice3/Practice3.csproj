@@ -187,9 +187,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202107130816059_Init.cs" />
-    <Compile Include="Migrations\202107130816059_Init.Designer.cs">
-      <DependentUpon>202107130816059_Init.cs</DependentUpon>
+    <Compile Include="Migrations\202107140753043_Init.cs" />
+    <Compile Include="Migrations\202107140753043_Init.Designer.cs">
+      <DependentUpon>202107140753043_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -234,8 +234,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -261,6 +259,7 @@
     <Content Include="Views\Courses\Attending.cshtml" />
     <Content Include="Views\Courses\Mine.cshtml" />
     <Content Include="Views\Courses\EditMineCourse.cshtml" />
+    <Content Include="Views\Courses\DeleteMineCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -279,8 +278,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202107130816059_Init.resx">
-      <DependentUpon>202107130816059_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202107140753043_Init.resx">
+      <DependentUpon>202107140753043_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,8 +15,8 @@ namespace Practice3.Migrations
                         Attendee = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.CourseId, t.Attendee })
-                .ForeignKey("dbo.Course", t => t.CourseId)
-                .ForeignKey("dbo.AspNetUsers", t => t.Attendee)
+                .ForeignKey("dbo.Course", t => t.CourseId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.Attendee, cascadeDelete: false)
                 .Index(t => t.CourseId)
                 .Index(t => t.Attendee);
             
@@ -51,7 +51,7 @@ namespace Practice3.Migrations
                         ClaimValue = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -65,8 +65,8 @@ namespace Practice3.Migrations
                         CategoryId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.LecturerId)
-                .ForeignKey("dbo.Category", t => t.CategoryId)
+                .ForeignKey("dbo.AspNetUsers", t => t.LecturerId, cascadeDelete: true)
+                .ForeignKey("dbo.Category", t => t.CategoryId, cascadeDelete: true)
                 .Index(t => t.LecturerId)
                 .Index(t => t.CategoryId);
             
@@ -88,7 +88,7 @@ namespace Practice3.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -99,8 +99,8 @@ namespace Practice3.Migrations
                         RoleId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             

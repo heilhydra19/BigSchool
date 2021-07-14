@@ -44,11 +44,5 @@ namespace Practice3.Models
         public DbSet<Attendance> Attendances { get; set; }
         public System.Data.Entity.DbSet<Practice3.Models.Course> Courses { get; set; }
         public System.Data.Entity.DbSet<Practice3.Models.Category> Categories { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            base.OnModelCreating(modelBuilder);
-        }
     }
 }
