@@ -134,6 +134,28 @@ namespace Practice3.Controllers
             db.SaveChanges();
             return RedirectToAction("Mine");
         }
+        public ActionResult LectureIamGoing()
+        {
+            ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                                .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            var listFollowee = db.Followings.Where(p => p.FollowerId == currentUser.Id).ToList();
+            var listAttendances = db.Attendances.Where(p => p.Attendee == currentUser.Id).ToList();
+            var courses = new List<Course>();
+            foreach (Attendance temp in listAttendances)
+            {
+                foreach(var item in listFollowee)
+                {
+                    if(item.FolloweeId == temp.Course.LecturerId)
+                    {
+                        Course objCourse = temp.Course;
+                        objCourse.Name = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                            .FindById(objCourse.LecturerId).Name;
+                        courses.Add(objCourse);
+                    }
+                }
+            }
+            return View(courses);
+        }
 
         protected override void Dispose(bool disposing)
         {

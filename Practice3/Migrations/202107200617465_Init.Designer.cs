@@ -13,7 +13,7 @@ namespace Practice3.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202107140753043_Init"; }
+            get { return "202107200617465_Init"; }
         }
         
         string IMigrationMetadata.Source

@@ -21,7 +21,14 @@ namespace Practice3.Controllers
         [ResponseType(typeof(Attendance))]
         public IHttpActionResult PostAttendance(Course course)
         {
+            var userID = User.Identity.GetUserId();
             var attendance = new Attendance() { CourseId = course.Id, Attendee = User.Identity.GetUserId() };
+            if (AttendanceExists(attendance))
+            {
+                db.Attendances.Remove(db.Attendances.SingleOrDefault(p => p.Attendee == userID && p.CourseId == course.Id));
+                db.SaveChanges();
+                return Ok("cancle");
+            }
             db.Attendances.Add(attendance);
             try
             {

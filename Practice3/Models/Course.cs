@@ -17,9 +17,9 @@ namespace Practice3.Models
 
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(255)]
         public string Name;
+
+        public string LectureName;
 
         [Required]
         [StringLength(128)]
@@ -33,6 +33,10 @@ namespace Practice3.Models
         public DateTime DateTime { get; set; }
 
         public int CategoryId { get; set; }
+
+        public bool isLogin = false;
+        public bool isShowGoing = false;
+        public bool isShowFollow = false;
 
         public virtual Category Category { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }

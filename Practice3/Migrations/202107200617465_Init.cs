@@ -105,6 +105,19 @@ namespace Practice3.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Followings",
+                c => new
+                    {
+                        FollowerId = c.String(nullable: false, maxLength: 128),
+                        FolloweeId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.FollowerId, t.FolloweeId })
+                .ForeignKey("dbo.AspNetUsers", t => t.FolloweeId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.FollowerId, cascadeDelete: false)
+                .Index(t => t.FollowerId)
+                .Index(t => t.FolloweeId);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -119,6 +132,8 @@ namespace Practice3.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Followings", "FollowerId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Followings", "FolloweeId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Attendance", "Attendee", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
@@ -127,6 +142,8 @@ namespace Practice3.Migrations
             DropForeignKey("dbo.Course", "LecturerId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Followings", new[] { "FolloweeId" });
+            DropIndex("dbo.Followings", new[] { "FollowerId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -137,6 +154,7 @@ namespace Practice3.Migrations
             DropIndex("dbo.Attendance", new[] { "Attendee" });
             DropIndex("dbo.Attendance", new[] { "CourseId" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Followings");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.Category");

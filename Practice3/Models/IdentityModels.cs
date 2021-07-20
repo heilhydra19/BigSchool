@@ -41,6 +41,7 @@ namespace Practice3.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<Following> Followings { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public System.Data.Entity.DbSet<Practice3.Models.Course> Courses { get; set; }
         public System.Data.Entity.DbSet<Practice3.Models.Category> Categories { get; set; }
